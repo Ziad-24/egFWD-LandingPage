@@ -2,8 +2,8 @@
  *
  * CSS written based on SMACSS architecture.
  * To learn more, visit: http://smacss.com/
- * 
- * For simplicity, no reset or normalize is added. 
+ *
+ * For simplicity, no reset or normalize is added.
  * To learn more, visit: https://css-tricks.com/reboot-resets-reasoning/
  *
 */
@@ -67,12 +67,19 @@ section {
 .navbar__menu ul {
     padding-left: 0;
     margin: 0;
-    text-align: right;
+    text-align: left;
 }
 
 .navbar__menu li {
     display: inline-block;
+
 }
+
+.navbar__menu li a{
+    text-decoration: none;
+
+}
+
 
 .navbar__menu .menu__link {
     display: block;
@@ -88,6 +95,10 @@ section {
     transition: ease 0.3s all;
 }
 
+/* adding the active class style */
+ul .your-active-class{
+  background-color: rgba(0,13,60,1);
+}
 /* Header Styles */
 .page__header {
     background: #fff;
@@ -126,7 +137,7 @@ section {
 section:nth-of-type(even) .landing__container {
     margin-right: 0;
     margin-left: auto;
-    text-align: right; 
+    text-align: right;
 }
 
 /* Background Circles */
@@ -208,6 +219,7 @@ section.your-active-class .landing__container::after {
     animation: rotate 5s linear 0s infinite forwards reverse;
 }
 
+
 /* Section Active Styles Keyframe Animations */
 @keyframes rotate {
 	from {
@@ -217,7 +229,7 @@ section.your-active-class .landing__container::after {
 	}
 	to {
 		transform: rotate(360deg)
-		           translate(-1em) 
+		           translate(-1em)
 		           rotate(-360deg);
 	}
 }

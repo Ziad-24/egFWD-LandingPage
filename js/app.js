@@ -23,7 +23,7 @@
  *
 */
 // Navbar Variable
-var navbar = document.getElementById('navbar');
+var navbar = document.getElementById('navbar__list');
 // Container that holds the sections
 var bodyContainer = document.getElementById('bodyContainer');
 // Adding new elements button
@@ -58,9 +58,14 @@ var buildNav = (counter) => {
     let navItem = document.createElement('li');
     let itemNumber = `Item ${counter}`;
     let idName = "Item" + `${counter}`;
+    let sectionId = "section"+`${counter}`;
     navItem.setAttribute('id' , idName);
-    navItem.setAttribute('class' , "menu__link");
-    navItem.innerHTML = itemNumber;
+    navItem.classList.add("menu__link");
+    navItem.innerHTML = "<a href='#'>" + "Item "+`${counter}`+"</a>";
+    if(counter === 1)
+    {
+      navItem.classList.add('your-active-class');
+    }
     return navItem;
 };
 
@@ -74,20 +79,61 @@ var addBody = (counter) => {
   section.setAttribute('data-nav',dataNav);
 
   let createDiv = document.createElement('div');
-  createDiv.setAttribute('class','landing__container');
+  createDiv.classList.add('landing__container');
   createDiv.innerHTML = `<h2>Section ${counter}</h2>` + loremText();
+
+  if(counter === 1)
+  {
+    section.setAttribute('class','your-active-class');
+  }
 
   section.appendChild(createDiv);
   return section;
+
 }
 
+
+
 // Add class 'active' to section when near top of viewport
+var activate = (sections , navigation , current , counter) => {
+  for(section of sections)
+  {
+    console.log('-----------');
+    let location = section.getBoundingClientRect();
+    console.log(location);
+    if(location.y < -120 || location.y > 680)
+    {
+      console.log("element number " + (counter++) + " is off screen");
+      section.classList.remove('your-active-class');
+    }
+    else if(location.y >= -120 && location.y <= 680)
+    {
+      current = counter;
+      console.log("element number " + (counter++) + " is on screen");
+      section.classList.add('your-active-class');
+    }
+  }
+
+  //highlight the active nav bar
+  for(let i = 0 ; i < navigation.length ; i++)
+  {
+    if(i == current)
+    {
+      console.log(`nav number ${i} is on screen`);
+      navigation[i].classList.add('your-active-class');
+    }
+    else
+    {
+      navigation[i].classList.remove('your-active-class');
+    }
+  }
+};
 
 
 // Scroll to anchor ID using scrollTO event
 
-
 /**
+
  * End Main Functions
  * Begin Events
  *
@@ -99,6 +145,8 @@ addingButton.addEventListener('click', () => {
   navbar.appendChild(buildNav(Elementscounter));
   bodyContainer.appendChild(addBody(Elementscounter));
   Elementscounter++;
+  var x = document.querySelectorAll('section');
+  // firstElementChild
 });
 removingButton.addEventListener('click' , () =>  {
   let lastSection = bodyContainer.lastElementChild;
@@ -106,7 +154,27 @@ removingButton.addEventListener('click' , () =>  {
   bodyContainer.removeChild(lastSection);
   navbar.removeChild(lastNavbar);
   Elementscounter--;
-})
+});
+
 // Scroll to section on link click
 
 // Set sections as active
+window.addEventListener('scroll', (event)=>{
+    let sections = document.querySelectorAll('section');
+    let navigation = document.querySelectorAll('li');
+    let current=0;
+    let counter = 0;
+    //remove all active classes from the section and the nav
+    for(section of sections)
+    {
+      section.classList.remove('your-active-class');
+    }
+    for(nav of navigation)
+    {
+      nav.classList.remove('your-active-class');
+    }
+
+
+    //get bounds of body element and figure out which one is the active
+  activate(sections , navigation , current , counter);
+});
