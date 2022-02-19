@@ -119,7 +119,10 @@ ul .your-active-class{
     color: #fff;
 }
 
-
+.page__footer #topButton{
+  visibility: hidden;
+  margin-left: auto;
+}
 /* ---- Theme Rules ---- */
 /* Landing Container Styles */
 .landing__container {
@@ -205,8 +208,8 @@ section:nth-of-type(3n + 1) .landing__container::after {
 /* Section Active Styles */
 /* Note: your-active-class class is applied through javascript. You should update the class here and in the index.html to what you set in your javascript file.  */
 section.your-active-class {
-    background: rgb(0, 0, 0);
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0) 100%);
+    background: rgb(170, 170, 170,0.4);
+    /* background: linear-gradient(0deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0) 100%); */
 }
 
 section.your-active-class .landing__container::before {
